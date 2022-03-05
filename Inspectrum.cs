@@ -14,7 +14,7 @@ public class ModClass : NeosMod
 {
     public override string Author => "Cyro";
     public override string Name => "Inspectrum";
-    public override string Version => "1.0.0";
+    public override string Version => "1.0.1";
 
     public override void OnEngineInit()
     {
