@@ -40,7 +40,7 @@ public class ModClass : NeosMod
             GradientDriver.AddPoint(0f, color.Black);
             GradientDriver.AddPoint(1f, color.Gray);
             GradientDriver.Target.Target = NeosUIStyle.UserParentedColor;
-            GradientDriver.Points[0].Value.DriveFrom(NeosUIStyle.Color);
+            GradientDriver.Points[0].Value.DriveInvertedFrom(NeosUIStyle.Color);
 
             cloudDriver.FallbackValue.Value = RandomX.RGB;
             cloudDriver.Path.Value = "G-Neos.CustomUserColor";
