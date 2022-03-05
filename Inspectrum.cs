@@ -47,6 +47,7 @@ public class ModClass : NeosMod
             
             __result.Style = NeosUIStyle;
             __result.Color = __result.Color.SetA(0f);
+            // Thanks to badhaloninja for pointing this out
             __result.RunInUpdates(3, () => __result.MarkChangeDirty());
         }
     }
