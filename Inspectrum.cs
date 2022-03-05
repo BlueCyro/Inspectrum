@@ -34,7 +34,14 @@ public class ModClass : NeosMod
             
             var cloudDriver = VisualConfigs.AttachComponent<CloudValueVariableDriver<color>>();
             var NeosUIStyle = VisualConfigs.AttachComponent<NeosUIStyle>();
-            
+            var GradientDriver = VisualConfigs.AttachComponent<ValueGradientDriver<color>>();
+
+            GradientDriver.Progress.Value = 0.5f;
+            GradientDriver.AddPoint(0f, color.Black);
+            GradientDriver.AddPoint(1f, color.Gray);
+            GradientDriver.Target.Target = NeosUIStyle.UserParentedColor;
+            GradientDriver.Points[0].Value.DriveFrom(NeosUIStyle.Color);
+
             cloudDriver.FallbackValue.Value = RandomX.RGB;
             cloudDriver.Path.Value = "G-Neos.CustomUserColor";
             cloudDriver.Target.Target = NeosUIStyle.Color;
@@ -47,7 +54,7 @@ public class ModClass : NeosMod
             
             __result.Style = NeosUIStyle;
             __result.Color = __result.Color.SetA(0f);
-            // Thanks to badhaloninja for pointing this out
+            //Thanks to badhaloninja for pointing this out
             __result.RunInUpdates(3, () => __result.MarkChangeDirty());
         }
     }
