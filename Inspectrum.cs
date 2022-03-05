@@ -3,7 +3,6 @@ using NeosModLoader;
 using FrooxEngine;
 using FrooxEngine.LogiX;
 using BaseX;
-using CodeX;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
