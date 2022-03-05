@@ -14,9 +14,6 @@
 #### Gareth48 for the idea
 #### badhaloninja for figuring out how to make the dang inspector update
 
-#
-#
-#
 
 For those of you not aware of how to build with vscode, you can simply follow the instructions in the build script and the SymlinkedLibraries folder.
-
+Once you have everything set to your system, just run the Build.ps1 or `dotnet build` in a powershell on the root of the project.
