@@ -1,6 +1,7 @@
 dotnet build
 
 $dir = Split-Path -Path (Get-Location) -Leaf
+# Edit $NeosDir to be the path to the neos directory on your own system
 $NeosDir = "C:\Neos\app\"
 $NeosExe = "$NeosDir\Neos.exe"
 $AssemblyLocation = "$(Get-Location)\bin\Debug\net4.7.2\$dir.dll"
