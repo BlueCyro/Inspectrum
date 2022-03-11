@@ -45,11 +45,6 @@ public class ModClass : NeosMod
             cloudDriver.Path.Value = "G-Neos.CustomUserColor";
             cloudDriver.Target.Target = NeosUIStyle.Color;
             cloudDriver.OverrideOwner.Value = __instance.World.LocalUser.UserID;
-
-            cloudDriver.Changed += (IChangeable c) =>
-            {
-                UniLog.Log(c.GetType());
-            };
             
             __result.Style = NeosUIStyle;
             __result.Color = __result.Color.SetA(0f);
