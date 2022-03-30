@@ -10,7 +10,7 @@ using System.Reflection;
 
 public static class FunColorExtensions
 {
-    public static Dictionary<string, LogixNode> DriveInvertedFrom(this Sync<color> target, Sync<color> source)
+    public static Dictionary<string, LogixNode>? DriveInvertedFrom(this Sync<color> target, Sync<color> source)
     {
         // Make sure the source and target are not the same
         if (target == source)
