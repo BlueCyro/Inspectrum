@@ -11,10 +11,16 @@ namespace Inspectrum
     {
         public override string Author => "Cyro";
         public override string Name => "Inspectrum";
-        public override string Version => "1.1.0";
+        public override string Version => "1.2.0";
+        public static ModConfiguration? Config;
 
+        [AutoRegisterConfigKey]
+        private static ModConfigurationKey<color> CustomGrabColor = new ModConfigurationKey<color>("Custom Grab Color", "When the alpha is greater than zero, use this color on grab instead of just inverting it", () => new color(0.0f, 0.0f, 0.0f, 0.0f));
+        
         public override void OnEngineInit()
         {
+            Config = GetConfiguration();
+            Config?.Save(true);
             Harmony harmony = new Harmony("net.Cyro.Inspectrum");
             harmony.PatchAll();
         }
@@ -30,13 +36,19 @@ namespace Inspectrum
 
                 var cloudDriver = VisualConfigs.AttachComponent<CloudValueVariableDriver<color>>();
                 var NeosUIStyle = VisualConfigs.AttachComponent<NeosUIStyle>();
-                var GradientDriver = VisualConfigs.AttachComponent<ValueGradientDriver<color>>();
-
-                GradientDriver.Progress.Value = 0.5f;
-                GradientDriver.AddPoint(0f, color.Black);
-                GradientDriver.AddPoint(1f, color.Gray);
-                GradientDriver.Target.Target = NeosUIStyle.UserParentedColor;
-                GradientDriver.Points[0].Value.DriveInvertedFrom(NeosUIStyle.Color);
+                if (Config != null && Config.GetValue(CustomGrabColor).a == 0.0f)
+                {
+                    var GradientDriver = VisualConfigs.AttachComponent<ValueGradientDriver<color>>();
+                    GradientDriver.Progress.Value = 0.5f;
+                    GradientDriver.AddPoint(0f, color.Black);
+                    GradientDriver.AddPoint(1f, color.Gray);
+                    GradientDriver.Target.Target = NeosUIStyle.UserParentedColor;
+                    GradientDriver.Points[0].Value.DriveInvertedFrom(NeosUIStyle.Color);
+                }
+                else
+                {
+                    NeosUIStyle.UserParentedColor.Value = Config?.GetValue(CustomGrabColor) ?? color.White;
+                }
 
                 cloudDriver.FallbackValue.Value = RandomX.RGB;
                 cloudDriver.Path.Value = "G-Neos.CustomUserColor";
