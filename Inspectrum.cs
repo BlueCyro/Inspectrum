@@ -36,7 +36,7 @@ namespace Inspectrum
 
                 var cloudDriver = VisualConfigs.AttachComponent<CloudValueVariableDriver<color>>();
                 var NeosUIStyle = VisualConfigs.AttachComponent<NeosUIStyle>();
-                if (Config != null && Config.GetValue(CustomGrabColor).a == 0.0f)
+                if (Config?.GetValue(CustomGrabColor).a == 0.0f)
                 {
                     var GradientDriver = VisualConfigs.AttachComponent<ValueGradientDriver<color>>();
                     GradientDriver.Progress.Value = 0.5f;
