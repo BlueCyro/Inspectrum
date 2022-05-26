@@ -15,12 +15,14 @@ namespace Inspectrum
         public static ModConfiguration? Config;
 
         [AutoRegisterConfigKey]
-        private static ModConfigurationKey<color> CustomGrabColor = new ModConfigurationKey<color>("Custom Grab Color", "When the alpha is greater than zero, use this color on grab instead of just inverting it", () => new color(0.0f, 0.0f, 0.0f, 0.0f));
-        
+        private static ModConfigurationKey<color> CustomGrabColor = new ModConfigurationKey<color>("Custom Grab Color", "When alpha is greater than zero, use this color on grab instead of just inverting it", () => new color(0.0f, 0.0f, 0.0f, 0.0f));
+
+        [AutoRegisterConfigKey]
+        private static ModConfigurationKey<color> InspectorColorOverride = new ModConfigurationKey<color>("Inspector Color Override", "When alpha is greater than zero, use this color on the inspector instead of your cloud color", () => new color(0.0f, 0.0f, 0.0f, 0.0f));    
         public override void OnEngineInit()
         {
             Config = GetConfiguration();
-            Config?.Save(true);
+            Config!.Save(true);
             Harmony harmony = new Harmony("net.Cyro.Inspectrum");
             harmony.PatchAll();
         }
@@ -34,9 +36,8 @@ namespace Inspectrum
                 Slot VisualConfigs = __instance.Slot.AddSlot("VisualConfigs");
                 VisualConfigs.OrderOffset = 1024;
 
-                var cloudDriver = VisualConfigs.AttachComponent<CloudValueVariableDriver<color>>();
                 var NeosUIStyle = VisualConfigs.AttachComponent<NeosUIStyle>();
-                if (Config?.GetValue(CustomGrabColor).a == 0.0f)
+                if (Config!.GetValue(CustomGrabColor).a == 0.0f)
                 {
                     var GradientDriver = VisualConfigs.AttachComponent<ValueGradientDriver<color>>();
                     GradientDriver.Progress.Value = 0.5f;
@@ -47,13 +48,21 @@ namespace Inspectrum
                 }
                 else
                 {
-                    NeosUIStyle.UserParentedColor.Value = Config?.GetValue(CustomGrabColor) ?? color.White;
+                    NeosUIStyle.UserParentedColor.Value = Config!.GetValue(CustomGrabColor);
                 }
 
-                cloudDriver.FallbackValue.Value = RandomX.RGB;
-                cloudDriver.Path.Value = "G-Neos.CustomUserColor";
-                cloudDriver.Target.Target = NeosUIStyle.Color;
-                cloudDriver.OverrideOwner.Value = __instance.World.LocalUser.UserID;
+                if (Config!.GetValue(InspectorColorOverride).a == 0.0f)
+                {
+                    var cloudDriver = VisualConfigs.AttachComponent<CloudValueVariableDriver<color>>();
+                    cloudDriver.FallbackValue.Value = RandomX.RGB;
+                    cloudDriver.Path.Value = "G-Neos.CustomUserColor";
+                    cloudDriver.Target.Target = NeosUIStyle.Color;
+                    cloudDriver.OverrideOwner.Value = __instance.World.LocalUser.UserID;
+                }
+                else
+                {
+                    NeosUIStyle.Color.Value = Config!.GetValue(InspectorColorOverride);
+                }
 
 
                 __result.Style = NeosUIStyle;
