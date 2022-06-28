@@ -1,13 +1,13 @@
 # Inspectrum
 
-## This is a [NeosModLoader](https://github.com/zkxs/NeosModLoader) mod that makes the color of your inspector panels reflect your custom user color cloud variable. Now you can inspect with the power of rainbows on your side!
+This is a [NeosModLoader](https://github.com/zkxs/NeosModLoader) mod that makes the color of your inspector panels reflect your custom user color cloud variable. Now you can inspect with the power of rainbows on your side!
 
 ### Installation: 
-#### Simply drop the dll from the latest release into your nml_mods folder
+Simply drop the dll from the latest release into your nml_mods folder
 
 
 ### Usage:
-#### Open an inspector panel
+Open an inspector panel and it will be colored with whatever your `G-Neos.CustomUserColor` cloud variable is set to. This can optionally be overridden via [NeosModSettings](https://github.com/badhaloninja/NeosModSettings)
 
 
 ### Credits:
