@@ -54,6 +54,7 @@ namespace Inspectrum
                 if (Config!.GetValue(InspectorColorOverride).a == 0.0f)
                 {
                     var cloudDriver = VisualConfigs.AttachComponent<CloudValueVariableDriver<color>>();
+                    cloudDriver.WriteBack.Value = false;
                     cloudDriver.FallbackValue.Value = RandomX.RGB;
                     cloudDriver.Path.Value = "G-Neos.CustomUserColor";
                     cloudDriver.Target.Target = NeosUIStyle.Color;
